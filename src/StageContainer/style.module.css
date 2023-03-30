@@ -1,5 +1,15 @@
 .stageContainer {
-    height: 100%;
+    height: calc(100% + 30px);
     width: 100%;
     background-color: white;
+}
+
+.areaIdentifier {
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2rem;
 }

@@ -6,12 +6,14 @@ interface Props {
     color: string;
 }
 
-export default function ClosedLine({ points, color }: Props) {
+export default function ClosedLine({ points, color, ...props }: Props) {
     return (
         <Line
             closed
             points={points.flat()}
             fill={color}
+            stroke="black"
+            {...props}
         />
     );
 }
