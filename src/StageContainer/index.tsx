@@ -3,65 +3,92 @@ import { Shape } from "konva/lib/Shape";
 import { useEffect, useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { Layer, Line, Stage } from "react-konva";
+import tinycolor from "tinycolor2";
 import EditableShape from "./EditableShape";
 import style from "./style.module.css";
+import Target from "./Target";
 import { AreaShape } from "./types/geometry";
 
 export default function StageContainer() {
     const stageRef = useRef<Konva.Stage>(null);
-
-
+    const [activeShapes, setActiveShapes] = useState<Shape[]>();
     const areas: AreaShape[] = [
         {
-            name: "Triangle",
+            name: "ONE",
             points: [
-                [10, 10],
-                [50, 10],
-                [35, 50],
+                [30, 30],
+                [300, 30],
+                [300, 200],
+                [30, 200],
             ]
         },
         {
-            name: "Square",
+            name: "TWO",
             points: [
-                [10, 10],
-                [50, 10],
-                [50, 50],
-                [10, 50],
+                [330, 30],
+                [470, 30],
+                [470, 450],
+                [330, 200],
             ]
         },
         {
-            name: "Weird",
+            name: "THREE",
             points: [
-                [10, 10],
-                [50, 10],
-                [60, 50],
-                [40, 50],
-                [20, 20],
-                [10, 20],
+                [316, 230],
+                [450, 460],
+                [180, 460],
+                [180, 345],
+                [250, 345],
+                [250, 230],
+            ]
+        },
+        {
+            name: "FOUR",
+            points: [
+                [30, 230],
+                [220, 230],
+                [220, 315],
+                [150, 315],
+                [150, 460],
+                [30, 460],
             ]
         },
     ];
 
-    areas.forEach((a, j) => a.points.forEach((p, i) => a.points[i] = p.map(p => p * 5 + j * 50) as [number, number]))
-
     return (
         <div className={style.stageContainer}>
+            <div className={style.areaIdentifier} style={{ backgroundColor: activeShapes?.[0]?.fill()}}>
+            </div>
             <Stage height={500} width={500} ref={stageRef}>
                 <Layer>
                     {
                         areas.map((a, i) => (
                             <EditableShape
+                                id={a.name.toLowerCase() + "-shape"}
                                 name={a.name}
                                 points={a.points}
                                 key={"" + a + i}
                                 color={[
-                                    "red",
-                                    "blue",
-                                    "green"
-                                ][i % 3]}
+                                    "rgba(155, 0, 0, 1)",
+                                    "rgba(0, 155, 0, 1)",
+                                    "rgba(0, 0, 155, 1)",
+                                    "rgba(155, 155, 0, 1)",
+                                ][i % 4]}
                             />
                         ))
                     }
+                    <Target
+                        id="target-shape"
+                        position={[25, 25]}
+                        onDrag={(pos) => {
+                            const intersections = stageRef.current?.getAllIntersections(pos)
+                                .filter(s => s?.id() != "target-shape" && s?.id()?.includes("-shape"))
+                            setActiveShapes(intersections)
+                        }}
+                        fill={
+                            activeShapes?.[0]?.fill() || "white"
+                        }
+                    />
                 </Layer>
             </Stage>
         </div>

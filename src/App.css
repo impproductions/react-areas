@@ -18,3 +18,7 @@ body {
   border-radius: 1rem;
   overflow: hidden;
 }
+
+button {
+  all: unset;
+}
