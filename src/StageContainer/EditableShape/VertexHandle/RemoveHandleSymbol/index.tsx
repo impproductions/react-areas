@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { Circle, Group, Line } from "react-konva";
+import { Group, Line } from "react-konva";
 
 interface Props {
     onClick: (e: Konva.KonvaEventObject<MouseEvent>) => void

@@ -1,4 +1,3 @@
-import Konva from "konva";
 import { Line } from "react-konva";
 
 interface Props {

@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { Circle, Group, Text } from "react-konva";
+import { Circle, Group } from "react-konva";
 import RemoveHandleSymbol from "./RemoveHandleSymbol";
 
 interface Props {

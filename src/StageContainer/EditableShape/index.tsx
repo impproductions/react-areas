@@ -1,6 +1,6 @@
 import Konva from "konva";
 import { ComponentPropsWithoutRef, useState } from "react";
-import { Circle, Group, Text } from "react-konva";
+import { Circle, Group } from "react-konva";
 import { AreaShape } from "../types/geometry";
 import AddHandleSymbol from "./AddHandleSymbol";
 import ClosedLine from "./ClosedLine";
@@ -24,6 +24,7 @@ export default function EditableShape({ points, color, ...props }: Props) {
             {pointState.map((p, i) => (
                 <>
                     <VertexHandle
+                        key={"vertex" + i}
                         position={p}
                         onDrag={(e: Konva.KonvaEventObject<DragEvent>) => {
                             points = pointState.slice();
@@ -38,6 +39,7 @@ export default function EditableShape({ points, color, ...props }: Props) {
                         canDelete={pointState.length > 3}
                     />
                     <AddHandleSymbol
+                        key={"add" + i}
                         position={[
                             (pointState[i % pointState.length][0] + pointState[(i + 1) % pointState.length][0]) / 2,
                             (pointState[i % pointState.length][1] + pointState[(i + 1) % pointState.length][1]) / 2,
